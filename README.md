@@ -1,5 +1,5 @@
 # Pia-Progra-web
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -220,10 +220,10 @@
                 <td><a onclick="irAPjsdelivr('${afo7}')">AFO 7</a></td>
             `;
             tbody.appendChild(fila);
-            <img src="logo1.png" alt="Logo UANL" class="logo-izq">
-            <img src="logo2.png" alt="Logo FIME" class="logo-der">
+         
         }
     </script>
-
+<img src="logo1.png" alt="Logo UANL" class="logo-izq">
+            <img src="logo2.png" alt="Logo FIME" class="logo-der">
 </body>
 </html>
