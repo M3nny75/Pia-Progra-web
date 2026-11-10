@@ -1,4 +1,3 @@
-# Pia-Progra-web
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -36,7 +35,7 @@
             height: 65px;
             object-fit: contain;
             border-radius: 6px;
-            background-color: #0f172a;
+            background-color: #ffffff;
             padding: 4px;
             border: 1px solid #475569;
         }
@@ -68,7 +67,6 @@
             margin-right: auto;
         }
 
-        /* Sección general de AFO 5 arriba */
         .seccion-afo5 {
             text-align: center;
             background-color: #162032;
@@ -132,8 +130,8 @@
 <body>
 
     <div class="contenedor">
-        <img src="logo1.png" alt="Logo U Izquierda" class="logo-izq">
-        <img src="logo2.png" alt="Logo U Derecha" class="logo-der">
+        <img src="logo2.png" alt="Logo UANL" class="logo-izq">
+        <img src="logo1.png" alt="Logo FIME" class="logo-der">
 
         <h1>PIA</h1>
         <div class="subtitulo">EQUIPO 3</div>
@@ -217,13 +215,11 @@
                 <td>${nom}</td>
                 <td>${car}</td>
                 <td><a onclick="irAPagina('${afo6}')">AFO 6</a></td>
-                <td><a onclick="irAPjsdelivr('${afo7}')">AFO 7</a></td>
+                <td><a onclick="irAPagina('${afo7}')">AFO 7</a></td>
             `;
             tbody.appendChild(fila);
-         
         }
     </script>
-<img src="logo1.png" alt="Logo UANL" class="logo-izq">
-            <img src="logo2.png" alt="Logo FIME" class="logo-der">
+
 </body>
 </html>
