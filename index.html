@@ -120,6 +120,8 @@
             display: inline-block;
         }
 
+        .pendiente { color: #94a3b8; font-style: italic; }
+
         td a:hover, .seccion-afo5 a:hover {
             background-color: #065f46;
             color: #6ee7b7;
@@ -136,11 +138,10 @@
         <h1>PIA</h1>
         <div class="subtitulo">EQUIPO 3</div>
 
-        <!-- AFO 5 GENERAL (Aparece una sola vez para todo el equipo) -->
+        <!-- TRABAJO EN EQUIPO (Aparece una sola vez para todo el equipo) -->
         <div class="seccion-afo5">
-            <span>AFO 5 (General):</span>
-            <a onclick="irAPagina('afo5_1.html')">Parte 1</a> / 
-            <a onclick="irAPagina('afo5_2.html')">Parte 2</a>
+            <span>Tema 1 (en equipo):</span>
+            <a href="https://ashleedoria.github.io/TEMA-1-OSI-TCP-/" onclick="avisar('Tema 1: Modelo OSI y TCP/IP')">Modelo OSI y TCP/IP</a>
         </div>
 
         <table>
@@ -160,9 +161,9 @@
     </div>
 
     <script>
-        function irAPagina(destino) {
-            alert("¡Alerta! Estás a punto de navegar a la página: " + destino);
-            window.location.href = destino;
+        // Muestra una alerta antes de abrir la actividad; al aceptar, el enlace continúa.
+        function avisar(nombre) {
+            alert("¡Alerta! Estás a punto de navegar a la página: " + nombre);
         }
 
         const xmlString = `<?xml version="1.0" encoding="UTF-8"?>
@@ -171,29 +172,29 @@
                 <matricula>1993581</matricula>
                 <nombre>Jose Manuel Barraza Chapa</nombre>
                 <carrera>IAS</carrera>
-                <afo6>af06.html</afo6>
-                <afo7>af07.html</afo7>
+                <afo6>https://m3nny75.github.io/trabajos-progra/</afo6>
+                <afo7>https://m3nny75.github.io/becas-progra/</afo7>
             </integrante>
             <integrante>
                 <matricula>2067285</matricula>
                 <nombre>Juan Carlos Cortez Rico</nombre>
                 <carrera>IAS</carrera>
-                <afo6>af06.html</afo6>
-                <afo7>af07.html</afo7>
+                <afo6></afo6>
+                <afo7></afo7>
             </integrante>
             <integrante>
                 <matricula>2222792</matricula>
                 <nombre>Ashlee Alejandra Doria Martinez</nombre>
                 <carrera>IAS</carrera>
-                <afo6>af06.html</afo6>
-                <afo7>af07.html</afo7>
+                <afo6>https://ashleedoria.github.io/06-DORIA/</afo6>
+                <afo7>https://ashleedoria.github.io/07-DORIA/</afo7>
             </integrante>
             <integrante>
                 <matricula>2092521</matricula>
                 <nombre>Johanna Jacqueline Montiel Bautista</nombre>
                 <carrera>IAS</carrera>
-                <afo6>af06.html</afo6>
-                <afo7>af07.html</afo7>
+                <afo6>https://ashleedoria.github.io/06-JACQUI-/</afo6>
+                <afo7>https://ashleedoria.github.io/07-JACQUI/</afo7>
             </integrante>
         </equipo>`;
 
@@ -209,13 +210,18 @@
             const afo6 = integrantes[i].getElementsByTagName("afo6")[0].textContent;
             const afo7 = integrantes[i].getElementsByTagName("afo7")[0].textContent;
 
+            // Si el integrante todavía no tiene enlace, se muestra "Pendiente".
+            const celda = (url, nombre) => url
+                ? `<a href="${url}" onclick="avisar('${nombre} de ${nom}')">${nombre}</a>`
+                : `<span class="pendiente">Pendiente</span>`;
+
             const fila = document.createElement("tr");
             fila.innerHTML = `
                 <td>${mat}</td>
                 <td>${nom}</td>
                 <td>${car}</td>
-                <td><a onclick="irAPagina('${afo6}')">AFO 6</a></td>
-                <td><a onclick="irAPagina('${afo7}')">AFO 7</a></td>
+                <td>${celda(afo6, "AFO 6")}</td>
+                <td>${celda(afo7, "AFO 7")}</td>
             `;
             tbody.appendChild(fila);
         }
