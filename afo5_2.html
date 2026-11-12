@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Java · Equipo 1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --green:#6bc76b;--yellow:#ffcf5c;--navy:#08122f;--red:#e0103a;--amber:#ffcf5c;--ok:#1f8f45;
+  --hg:#fff;--hy:#08122f;--paper:#fff;--paperink:#08122f;--grid:rgba(255,255,255,.28);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --green:#1f5a36;--yellow:#6b5416;--navy:#0b1533;--hg:#e9f6ec;--hy:#ffe9a8;--paper:#18234a;--paperink:#eef1fb;--grid:rgba(255,255,255,.08);color-scheme:dark;}}
+:root[data-theme="dark"]{--green:#1f5a36;--yellow:#6b5416;--navy:#0b1533;--hg:#e9f6ec;--hy:#ffe9a8;--paper:#18234a;--paperink:#eef1fb;--grid:rgba(255,255,255,.08);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;background:var(--green);color:var(--navy);line-height:1.6;font-size:16px}
+section{padding:72px 6vw;background-image:linear-gradient(var(--grid) 2px,transparent 2px),linear-gradient(90deg,var(--grid) 2px,transparent 2px);background-size:170px 170px}
+.g{background-color:var(--green);--h:var(--hg)}
+.y{background-color:var(--yellow);--h:var(--hy);--grid:rgba(0,0,0,.1)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .y{--grid:rgba(255,255,255,.08)}}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2{color:var(--h);font-weight:700;line-height:1.05;margin:0 0 32px;letter-spacing:-.02em}
+h1{font-size:clamp(72px,16vw,180px)}
+h2{font-size:clamp(34px,6vw,64px);max-width:12em}
+h3{margin:0 0 8px;font-size:18px}
+p{margin:0 0 14px;max-width:62ch}
+.win{border-radius:24px;padding:26px 30px 30px;position:relative}
+.win::before{content:"";display:block;width:12px;height:12px;border-radius:50%;background:var(--red);box-shadow:20px 0 0 var(--amber),40px 0 0 #6bc76b;margin-bottom:22px}
+.dk{background:var(--navy);color:#fff}
+.lt{background:var(--paper);color:var(--paperink)}
+.cols{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.win p:last-child{margin-bottom:0}
+.hero{min-height:92vh;display:flex;align-items:center}
+.hero .wrap{display:grid;gap:20px}
+.title{padding:40px 36px}
+.title h1{color:#fff;margin:0}
+.by{justify-self:end}
+.by small{font-size:18px;display:block}.by strong{font-size:clamp(26px,5vw,44px)}
+nav{position:sticky;top:0;z-index:20;background:var(--navy);padding:10px 6vw;padding-top:calc(10px + env(safe-area-inset-top,0px));overflow-x:auto;white-space:nowrap;display:flex;gap:18px;font-size:14px}
+nav a{color:#fff;text-decoration:none;opacity:.8}nav a:hover,nav a:focus-visible{opacity:1;text-decoration:underline;outline:none}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.flow .win{text-align:center}.flow .win::before{margin-left:auto;margin-right:auto;margin-bottom:14px}
+.flow .win{position:relative}
+.flow small{display:block;opacity:.8}
+.arrow{font-size:20px;opacity:.6}
+pre{margin:0;background:#14141a;color:#e8e8f0;padding:18px 20px;border-radius:12px;overflow-x:auto;font:inherit;font-size:15px;line-height:1.55}
+.k{color:#e5c07b}.t{color:#56b6c2}.s{color:#98c379}
+ul{margin:0;padding-left:20px}li{margin-bottom:8px}
+code{background:rgba(127,127,127,.25);padding:1px 6px;border-radius:5px}
+.tag{display:inline-block;font-weight:700}
+.cap{font-weight:700;font-size:20px;margin-bottom:6px}
+.chars .win p{font-weight:600}
+/* quiz */
+.q{margin-bottom:16px}
+.q p{max-width:none;font-size:16px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btns button{font:inherit;font-weight:600;cursor:pointer;border:2px solid currentColor;background:transparent;color:inherit;padding:8px 20px;border-radius:10px}
+.btns button:hover{background:rgba(127,127,127,.25)}
+.btns button:focus-visible,nav a:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.btns button:disabled{cursor:default;opacity:.55}
+.btns button.right{background:var(--ok);border-color:var(--ok);color:#fff;opacity:1}
+.btns button.wrong{background:var(--red);border-color:var(--red);color:#fff;opacity:1}
+.fb{margin-top:10px;min-height:1.4em;font-size:15px}
+#score{font-size:22px;font-weight:700;color:var(--h);margin-bottom:24px}
+.thanks{min-height:70vh;display:flex;align-items:center}
+.thanks h2{color:#fff;margin:0}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav aria-label="Secciones">
+<a href="https://m3nny75.github.io/Pia-Progra-web/">&larr; Volver al PIA</a><a href="#inicio">Inicio</a><a href="#que-es">Qué es</a><a href="#historia">Historia</a><a href="#uso">Para qué sirve</a><a href="#caracteristicas">Características</a><a href="#funciona">Cómo funciona</a><a href="#codigo">Código</a><a href="#aplicaciones">Aplicaciones</a><a href="#ventajas">Ventajas</a><a href="#desventajas">Desventajas</a><a href="#quiz">Quiz</a>
+</nav>
+
+<section class="g hero" id="inicio"><div class="wrap">
+  <div class="win dk title"><h1>JAVA</h1></div>
+  <div class="win lt by"><small>Presentado por</small><strong>EQUIPO 1</strong></div>
+</div></section>
+
+<section class="y" id="que-es"><div class="wrap">
+  <h2>¿Qué es Java?</h2>
+  <div class="win dk">
+    <p>Java es un lenguaje de programación de alto nivel, es decir, utiliza instrucciones que resultan más comprensibles para las personas y que después se traducen para que la computadora pueda ejecutarlas. Fue diseñado para facilitar la creación de software y es conocido por su programación orientada a objetos, un método que permite organizar el código en clases y objetos.</p>
+    <p>Java utiliza un proceso de compilación que transforma el código fuente en un formato intermedio llamado bytecode.</p>
+  </div>
+</div></section>
+
+<section class="g" id="historia"><div class="wrap">
+  <h2>Historia</h2>
+  <div class="cols">
+    <div class="win dk"><p>Java fue creado en 1991 por James Gosling y su equipo en la empresa Sun Microsystems. Al principio, el proyecto se llamaba Oak, pero después cambió su nombre a Java.</p></div>
+    <div class="win lt"><p>En 1995 se presentó oficialmente y comenzó a utilizarse para desarrollar programas y aplicaciones. En 2010, la empresa Oracle adquirió Sun Microsystems y pasó a encargarse del desarrollo de Java. Actualmente, Java sigue siendo uno de los lenguajes de programación más utilizados en el mundo.</p></div>
+  </div>
+</div></section>
+
+<section class="g" id="uso"><div class="wrap">
+  <h2>¿Para qué sirve?</h2>
+  <div class="cols">
+    <div class="win dk"><p>Java se utiliza para desarrollar diferentes tipos de sistemas informáticos en áreas como los negocios, la educación, la ciencia y los servicios digitales. Permite crear aplicaciones empresariales para administrar operaciones, controlar información y facilitar procesos de trabajo.</p></div>
+    <div class="win dk"><p>Además, Java permite conectar programas con bases de datos para consultar, registrar y modificar información. Se utiliza en sistemas de comercio electrónico, plataformas de servicios y herramientas que necesitan comunicarse con otros sistemas.</p></div>
+  </div>
+</div></section>
+
+<section class="y chars" id="caracteristicas"><div class="wrap">
+  <h2>Características principales de Java</h2>
+  <div class="cols">
+    <div class="win dk"><div class="cap">MULTIPLATAFORMA</div><p>Ejecución universal mediante bytecode.</p></div>
+    <div class="win dk"><div class="cap">ORIENTADO A OBJETOS</div><p>Estructura modular reutilizable.</p></div>
+    <div class="win dk"><div class="cap">ROBUSTO Y SEGURO</div><p>Gestión automática de memoria.</p></div>
+    <div class="win dk"><div class="cap">ALTO RENDIMIENTO</div><p>Ejecución multihilo simultánea.</p></div>
+  </div>
+</div></section>
+
+<section class="g" id="funciona"><div class="wrap">
+  <h2>¿Cómo funciona?</h2>
+  <div class="flow">
+    <div class="win lt"><h3>Código fuente</h3><small>Archivos .java nativos.</small></div>
+    <div class="win lt"><h3>Compilación</h3><small>Traducción por javac.</small></div>
+    <div class="win lt"><h3>Bytecode</h3><small>Instrucciones .class.</small></div>
+    <div class="win lt"><h3>JVM</h3><small>Ejecución universal.</small></div>
+  </div>
+</div></section>
+
+<section class="y" id="codigo"><div class="wrap">
+  <h2>¿Cómo se estructura un programa en Java?</h2>
+  <div class="cols">
+    <div class="win dk">
+      <ul>
+        <li>El código se organiza en clases.</li>
+        <li>Los archivos de código fuente usan la extensión <code>.java</code>.</li>
+        <li>El nombre del archivo debe coincidir con el de la clase pública.</li>
+      </ul>
+      <p style="margin-top:14px">Ejemplo: <code>HolaMundo.java</code> contiene la clase pública <code>HolaMundo</code>.</p>
+    </div>
+    <div class="win lt"><pre><span class="k">public class</span> Hello {
+    <span class="k">public static void</span> <span class="t">main</span>(String[] args) {
+        System.out.println(<span class="s">"Hello, world!"</span>);
+    }
+}</pre><p style="margin:12px 0 0;font-size:14px">Salida: <code>Hello, world!</code></p></div>
+  </div>
+</div></section>
+
+<section class="g"><div class="wrap">
+  <h2>El método main()</h2>
+  <div class="cols">
+    <div class="win lt"><pre><span class="k">public class</span> HelloWorld {
+  <span class="k">public static void</span> <span class="t">main</span>(String[] args) {
+    System.out.println(<span class="s">"Hello, world!"</span>);
+  }
+}</pre></div>
+    <div class="win dk"><div class="cap">Palabras clave de main</div>
+      <ul><li><code>public</code></li><li><code>void</code></li><li><code>static</code></li><li><code>String</code></li></ul></div>
+  </div>
+</div></section>
+
+<section class="y"><div class="wrap">
+  <h2>Sintaxis básica</h2>
+  <div class="win dk"><ul>
+    <li><code>{ }</code> delimitan bloques de código.</li>
+    <li><code>;</code> termina las instrucciones habituales.</li>
+    <li><code>System.out.println()</code> muestra información en consola.</li>
+    <li><code>//</code> y <code>/* */</code> permiten escribir comentarios.</li>
+  </ul></div>
+</div></section>
+
+<section class="g"><div class="wrap">
+  <h2>Variables</h2>
+  <div class="cols">
+    <div class="win lt"><pre><span class="t">int</span> number = 10;
+<span class="t">double</span> pi = 3.14;
+<span class="t">char</span> letter = <span class="s">'A'</span>;
+String text = <span class="s">"Hello"</span>;
+<span class="t">boolean</span> flag = true;</pre></div>
+    <div class="win dk"><ul>
+      <li>Enteros: <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>.</li>
+      <li>Decimales: <code>float</code>, <code>double</code>.</li>
+      <li>Carácter: <code>char</code>.</li>
+      <li>Lógico: <code>boolean</code>.</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<section class="y"><div class="wrap">
+  <h2>Reglas para nombrar variables</h2>
+  <div class="win dk"><ul>
+    <li>Java distingue entre mayúsculas y minúsculas.</li>
+    <li>Un nombre no puede comenzar con un número.</li>
+    <li>No se pueden utilizar palabras reservadas como <code>class</code> o <code>int</code>.</li>
+    <li>Se recomienda lowerCamelCase, como <code>nombreEstudiante</code>.</li>
+    <li>Las constantes suelen escribirse en mayúsculas, como <code>PI</code>.</li>
+  </ul></div>
+</div></section>
+
+<section class="g" id="aplicaciones"><div class="wrap">
+  <h2>Principales aplicaciones de Java</h2>
+  <div class="cols">
+    <div class="win dk"><h3>Desarrollo empresarial y backend</h3><p>Es el estándar de la industria bancaria, fintech y de grandes corporaciones para el procesamiento de transacciones y arquitecturas de microservicios.</p></div>
+    <div class="win dk"><h3>Data e infraestructura distribuida</h3><p>Herramientas fundamentales para procesar grandes volúmenes de datos están desarrolladas en Java o corren sobre la máquina virtual de Java (JVM), tales como Apache Hadoop y Spark.</p></div>
+    <div class="win lt"><h3>Desarrollo móvil (Android)</h3><p>Aunque Kotlin es hoy el lenguaje prioritario para Android, la base del ecosistema, la Android SDK original y miles de millones de líneas de código en producción continúan construidas sobre Java.</p></div>
+    <div class="win lt"><h3>Sistemas embebidos e Internet de las Cosas</h3><p>A través de tecnologías como Java ME (Micro Edition) y plataformas embebidas, se utiliza en tarjetas inteligentes (tarjetas SIM, chips bancarios con Java Card), terminales de punto de venta (POS) y controladores de automatización industrial.</p></div>
+    <div class="win dk"><h3>Computación en la nube y microservicios</h3><p>Alta adopción en entornos contenerizados (Docker, Kubernetes) y plataformas serverless gracias a su estabilidad bajo cargas de trabajo pesadas.</p></div>
+    <div class="win dk"><h3>Herramientas de software y aplicaciones de escritorio</h3><p>IDEs completos como IntelliJ IDEA, Eclipse y NetBeans están construidos en Java, además de software especializado y simuladores (utilizando JavaFX o Swing).</p></div>
+  </div>
+</div></section>
+
+<section class="y" id="ventajas"><div class="wrap">
+  <h2>Ventajas de Java</h2>
+  <div class="cols">
+    <div class="win lt"><h3>Seguridad y robustez</h3><p>Tipado estático fuerte, manejo riguroso de excepciones y ausencia de punteros directos accesibles por el programador, lo que previene accesos indebidos a memoria y desbordamientos de búfer.</p></div>
+    <div class="win dk"><h3>Concurrencia y escalabilidad</h3><p>Soporte nativo para hilos (multithreading), ampliado en versiones modernas con Virtual Threads (Project Loom) para manejar millones de conexiones simultáneas con bajo consumo de recursos.</p></div>
+    <div class="win lt"><h3>Ecosistema y comunidad madura</h3><p>Cuenta con una de las comunidades más extensas del mundo, con librerías de código abierto para prácticamente cualquier necesidad y amplio soporte para testing (JUnit, Mockito).</p></div>
+  </div>
+</div></section>
+
+<section class="g" id="desventajas"><div class="wrap">
+  <h2>Desventajas de Java</h2>
+  <div class="cols">
+    <div class="win dk"><h3>Consumo de memoria</h3><p>En comparación con lenguajes compilados (como C, C++, Rust o Go), las aplicaciones Java consumen más memoria RAM para sostener la infraestructura de la JVM y las estructuras de objetos.</p></div>
+    <div class="win lt"><h3>Rendimiento y tiempo de arranque</h3><p>El tiempo de inicio y el calentamiento de la máquina virtual pueden ser lentos, representando un reto.</p></div>
+    <div class="win dk"><h3>Verbosidad del código</h3><p>Tradicionalmente requiere más líneas de código estructurado y sintaxis repetitiva en comparación con lenguajes dinámicos o modernos.</p></div>
+    <div class="win lt"><h3>Pausas del Garbage Collector</h3><p>Las pausas de recolección de basura pueden introducir jitter impredecible en sistemas de trading.</p></div>
+    <div class="win dk"><h3>Interfaces de escritorio</h3><p>Frameworks como Swing o JavaFX quedaron rezagados frente a soluciones modernas de escritorio y herramientas nativas de cada sistema operativo, por lo que no se elige Java para nuevas interfaces de usuario de escritorio comerciales.</p></div>
+  </div>
+</div></section>
+
+<section class="y" id="quiz"><div class="wrap">
+  <h2>Pon a prueba lo aprendido</h2>
+  <div id="score" aria-live="polite">Responde verdadero o falso.</div>
+  <div id="qs" class="cols"></div>
+</div></section>
+
+<section class="g thanks"><div class="wrap"><div class="win dk" style="padding:50px 36px"><h2>GRACIAS</h2></div></div></section>
+
+<script>
+var Q=[
+["Java es un lenguaje de alto nivel orientado a objetos que organiza el código en clases y objetos y se compila a un formato intermedio llamado bytecode.",1,"Verdadero: el compilador genera bytecode que luego ejecuta la JVM."],
+["En Java el código fuente se escribe directamente en lenguaje máquina.",0,"Falso: se escribe en un lenguaje de alto nivel y se compila a bytecode."],
+["En Java el símbolo ; termina las instrucciones y las llaves { } delimitan bloques de código.",1,"Verdadero."],
+["Para mostrar información en consola en Java se usa System.out.println() y para comentarios se usa // y /* */.",1,"Verdadero."],
+["En Java no importa si escribes nombre o Nombre, es lo mismo.",0,"Falso: Java distingue entre mayúsculas y minúsculas."],
+["Un nombre de variable en Java puede empezar con un número y puede ser una palabra reservada como class o int.",0,"Falso: no puede empezar con número ni usar palabras reservadas."],
+["Se recomienda usar lowerCamelCase para variables, como nombreEstudiante, y MAYÚSCULAS para constantes, como PI.",1,"Verdadero."],
+["byte, short, int, long son para enteros, float, double para decimales, char para carácter y boolean para lógicos.",1,"Verdadero."],
+["String es un tipo de dato primitivo igual que int y char.",0,"Falso: String es una clase (tipo de referencia), no un primitivo."],
+["Aunque Kotlin es hoy el prioritario para Android, el Android SDK original y miles de millones de líneas de código en producción siguen sobre Java.",1,"Verdadero."],
+["Java es el estándar en la industria bancaria y fintech para procesamiento de transacciones y microservicios.",1,"Verdadero."],
+["Herramientas para big data como Apache Hadoop / Spark y muchas herramientas de Data están hechas en Java o corren sobre la JVM.",1,"Verdadero."],
+["Java Card no tienen nada que ver con tarjetas SIM, chips bancarios o terminales POS.",0,"Falso: Java Card se usa justamente en SIM y chips bancarios."],
+["IDEs completos como IntelliJ IDEA, Eclipse y NetBeans están construidos en Java.",1,"Verdadero."],
+["Java tiene alta adopción en la nube con Docker y Kubernetes gracias a su estabilidad bajo cargas pesadas.",1,"Verdadero."],
+["Una ventaja de Java es su seguridad y robustez porque tiene tipado estático fuerte y no permite punteros directos, evitando desbordamientos de búfer.",1,"Verdadero."],
+["Con Project Loom y Virtual Threads, Java puede manejar millones de conexiones simultáneas con bajo consumo.",1,"Verdadero."],
+["Una desventaja de Java es que consume más memoria RAM que lenguajes como C, C++, Rust o Go por la JVM.",1,"Verdadero."],
+["Java es poco verboso y siempre inicia instantáneamente sin calentamiento de la máquina virtual.",0,"Falso: suele ser verboso y la JVM necesita arrancar y calentarse."],
+["Las pausas del Garbage Collector pueden causar jitter impredecible en sistemas como trading, y frameworks como Swing / JavaFX hoy están rezagados frente a soluciones nativas de escritorio.",1,"Verdadero."]
+];
+var done=0,good=0,box=document.getElementById("qs"),sc=document.getElementById("score");
+Q.forEach(function(q,i){
+  var d=document.createElement("div");d.className="win "+(i%2?"lt":"dk")+" q";
+  d.innerHTML='<p>'+(i+1)+'. '+q[0]+'</p><div class="btns"><button data-v="1">Verdadero</button><button data-v="0">Falso</button></div><div class="fb" aria-live="polite"></div>';
+  d.querySelectorAll("button").forEach(function(b){
+    b.onclick=function(){
+      var v=+b.dataset.v,ok=v===q[1];
+      d.querySelectorAll("button").forEach(function(x){x.disabled=true;if(+x.dataset.v===q[1])x.classList.add("right")});
+      if(!ok)b.classList.add("wrong");
+      d.querySelector(".fb").textContent=(ok?"Correcto. ":"Incorrecto. ")+q[2];
+      done++;if(ok)good++;
+      sc.textContent="Aciertos: "+good+" de "+done+(done===Q.length?" (completado)":" · faltan "+(Q.length-done));
+    };
+  });
+  box.appendChild(d);
+});
+</script>
+</body>
+</html>
